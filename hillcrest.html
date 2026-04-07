@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HILLCREST — West Coast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #F7F3EC;
+    --warm-white: #FDFAF5;
+    --green: #4CAF7D;
+    --green-light: #7DD4A0;
+    --green-dark: #2E7D52;
+    --gold: #D4A843;
+    --burnt: #C96B3A;
+    --charcoal: #1A1A18;
+    --mid: #3D3D39;
+    --soft: #8A8A7E;
+    --highlight: #F0E8D0;
+    --nav-h: 72px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--green);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+    mix-blend-mode: multiply;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 40px; height: 40px;
+    border: 1.5px solid var(--green);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.18s ease, width 0.3s ease, height 0.3s ease;
+    opacity: 0.5;
+  }
+  .cursor.hover { width: 20px; height: 20px; background: var(--gold); }
+  .cursor-ring.hover { width: 60px; height: 60px; opacity: 0.3; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    z-index: 100;
+    mix-blend-mode: multiply;
+    transition: background 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(247,243,236,0.92);
+    backdrop-filter: blur(12px);
+    mix-blend-mode: normal;
+    border-bottom: 1px solid rgba(76,175,125,0.15);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 0.12em;
+    color: var(--charcoal);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--green); }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 1.5px;
+    background: var(--green);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--green-dark); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    background: var(--charcoal);
+    color: var(--cream) !important;
+    padding: 10px 22px;
+    border-radius: 100px;
+    transition: background 0.3s ease !important;
+  }
+  .nav-cta:hover { background: var(--green-dark) !important; color: white !important; }
+  .nav-cta::after { display: none !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+    padding-top: var(--nav-h);
+  }
+
+  /* grain overlay */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.6;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 80px 72px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.9s 0.2s both;
+  }
+  .hero-eyebrow-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.7; }
+  }
+  .hero-eyebrow span {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--soft);
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(88px, 11vw, 148px);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: var(--charcoal);
+    animation: fadeUp 1s 0.35s both;
+  }
+  .hero-title .green-stroke {
+    -webkit-text-stroke: 2px var(--green);
+    color: transparent;
+  }
+
+  .hero-sub {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--soft);
+    margin: 24px 0 44px;
+    line-height: 1.5;
+    max-width: 380px;
+    animation: fadeUp 1s 0.5s both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    animation: fadeUp 1s 0.65s both;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--green);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 32px;
+    border-radius: 100px;
+    border: none;
+    cursor: none;
+    transition: background 0.3s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--green-dark);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-primary span { position: relative; z-index: 1; }
+  .btn-primary svg { position: relative; z-index: 1; }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--charcoal);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 24px;
+    border-radius: 100px;
+    border: 1.5px solid rgba(26,26,24,0.2);
+    transition: border-color 0.3s, color 0.3s;
+    cursor: none;
+  }
+  .btn-ghost:hover { border-color: var(--green); color: var(--green-dark); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 72px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: fadeUp 1s 1s both;
+  }
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: var(--soft);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--green);
+    animation: scrollSlide 2s infinite;
+  }
+  @keyframes scrollSlide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+  }
+  .scroll-text {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--soft);
+  }
+
+  /* HERO RIGHT — Visual stage */
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-visual-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #2E7D52 0%, #4CAF7D 40%, #7DD4A0 70%, #D4F0E3 100%);
+    clip-path: polygon(8% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+  .hero-visual-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 60%, rgba(212,168,67,0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(247,243,236,0.15) 0%, transparent 50%);
+  }
+
+  /* Floating decorative elements */
+  .float-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    animation: floatBob linear infinite;
+  }
+  @keyframes floatBob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-18px) rotate(5deg); }
+    66% { transform: translateY(10px) rotate(-3deg); }
+  }
+
+  .hero-artist-card {
+    position: absolute;
+    bottom: 60px;
+    left: 40px;
+    right: 40px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: fadeUp 1.2s 0.8s both;
+  }
+  .now-playing-dot {
+    width: 36px; height: 36px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    animation: pulse 1.8s infinite;
+  }
+  .now-playing-info { flex: 1; }
+  .now-playing-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 3px;
+  }
+  .now-playing-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    color: white;
+    font-weight: 700;
+  }
+  .now-playing-artists {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 1px;
+  }
+  .waveform {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    height: 24px;
+  }
+  .wave-bar {
+    width: 3px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 2px;
+    animation: waveAnim 1.2s ease-in-out infinite;
+  }
+  .wave-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+  .wave-bar:nth-child(2) { height: 18px; animation-delay: 0.15s; }
+  .wave-bar:nth-child(3) { height: 24px; animation-delay: 0.3s; }
+  .wave-bar:nth-child(4) { height: 14px; animation-delay: 0.45s; }
+  .wave-bar:nth-child(5) { height: 20px; animation-delay: 0.1s; }
+  .wave-bar:nth-child(6) { height: 10px; animation-delay: 0.25s; }
+  @keyframes waveAnim {
+    0%, 100% { transform: scaleY(0.4); }
+    50% { transform: scaleY(1); }
+  }
+
+  /* Large type watermark */
+  .hero-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-8deg);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 200px;
+    color: rgba(255,255,255,0.06);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: 0.05em;
+  }
+
+  /* TICKER TAPE */
+  .ticker {
+    background: var(--charcoal);
+    color: var(--cream);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+  }
+  .ticker-inner {
+    display: inline-flex;
+    gap: 0;
+    animation: tickerMove 30s linear infinite;
+  }
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 28px;
+    padding: 0 28px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .ticker-dot { color: var(--green); font-size: 16px; }
+  @keyframes tickerMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* SECTION COMMONS */
+  section { padding: 120px 72px; position: relative; }
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .section-label-line {
+    width: 32px; height: 1.5px;
+    background: var(--green);
+  }
+  .section-label span {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--green-dark);
+  }
+  .section-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 7vw, 96px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--charcoal);
+  }
+
+  /* MUSIC SECTION */
+  .music-section {
+    background: var(--warm-white);
+  }
+  .music-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 64px;
+  }
+  .music-tracks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .track-card {
+    background: var(--cream);
+    border: 1px solid rgba(76,175,125,0.1);
+    border-radius: 20px;
+    padding: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+    cursor: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .track-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(76,175,125,0.04) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .track-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 48px rgba(76,175,125,0.12);
+    border-color: rgba(76,175,125,0.3);
+  }
+  .track-card:hover::before { opacity: 1; }
+  .track-card.featured {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, var(--charcoal), #2D2D2A);
+    border-color: transparent;
+    color: white;
+  }
+  .track-card.featured .track-title { color: white; }
+  .track-card.featured .track-meta { color: rgba(255,255,255,0.5); }
+  .track-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--green);
+    min-width: 36px;
+    line-height: 1;
+  }
+  .track-art {
+    width: 64px; height: 64px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--green), var(--green-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .track-card.featured .track-art {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, var(--gold), var(--burnt));
+  }
+  .track-art svg { color: rgba(255,255,255,0.9); }
+  .track-info { flex: 1; }
+  .track-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+  }
+  .track-card.featured .track-title { font-size: 22px; }
+  .track-meta {
+    font-size: 12px;
+    color: var(--soft);
+    letter-spacing: 0.06em;
+  }
+  .track-duration {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--soft);
+    letter-spacing: 0.05em;
+  }
+  .track-card.featured .track-duration { color: rgba(255,255,255,0.4); }
+  .play-btn {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--green);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: none;
+    flex-shrink: 0;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .track-card:hover .play-btn { transform: scale(1.1); background: var(--green-dark); }
+  .track-card.featured .play-btn { background: var(--gold); }
+
+  /* ABOUT SECTION */
+  .about-section {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    padding: 120px 72px;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-photo-main {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, var(--green-dark) 0%, var(--green) 50%, var(--green-light) 100%);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 32px;
+  }
+  .about-photo-main::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 40% 30%, rgba(212,168,67,0.3) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(201,107,58,0.2) 0%, transparent 50%);
+  }
+  .about-type-overlay {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 120px;
+    line-height: 1;
+    color: rgba(255,255,255,0.08);
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    letter-spacing: 0.02em;
+    user-select: none;
+  }
+  .about-tag {
+    position: relative;
+    z-index: 2;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 100px;
+    padding: 10px 20px;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+  }
+  .about-badge {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 100px; height: 100px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    color: white;
+    animation: rotateSlow 12s linear infinite;
+    box-shadow: 0 12px 32px rgba(212,168,67,0.4);
+  }
+  .about-badge .big { font-size: 26px; line-height: 1; }
+  .about-badge .small { font-size: 9px; letter-spacing: 0.15em; }
+  @keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .about-content { }
+  .about-body {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    line-height: 1.7;
+    color: var(--mid);
+    margin: 28px 0 40px;
+  }
+  .about-body em { color: var(--green-dark); font-style: italic; }
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(76,175,125,0.15);
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--green);
+    letter-spacing: 0.03em;
+  }
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--soft);
+    margin-top: 4px;
+  }
+
+  /* MERCH SECTION */
+  .merch-section {
+    background: var(--charcoal);
+    color: var(--cream);
+    padding: 120px 72px;
+    position: relative;
+    overflow: hidden;
+  }
+  .merch-section::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(76,175,125,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .merch-section .section-heading { color: var(--cream); }
+  .merch-section .section-label span { color: var(--green-light); }
+  .merch-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 56px;
+  }
+  .merch-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 20px;
+  }
+  .merch-card {
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    cursor: none;
+    transition: transform 0.4s ease;
+  }
+  .merch-card:hover { transform: translateY(-6px); }
+  .merch-visual {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .merch-card:nth-child(1) .merch-visual {
+    aspect-ratio: 4/5;
+    background: linear-gradient(145deg, #4CAF7D, #2E7D52);
+  }
+  .merch-card:nth-child(2) .merch-visual {
+    background: linear-gradient(145deg, #D4A843, #C96B3A);
+  }
+  .merch-card:nth-child(3) .merch-visual {
+    background: linear-gradient(145deg, #2D2D2A, #4CAF7D22), #2D2D2A;
+    border: 1px solid rgba(76,175,125,0.2);
+  }
+  .merch-icon {
+    font-size: 64px;
+    filter: saturate(0) brightness(2);
+    opacity: 0.4;
+    transition: transform 0.4s ease;
+  }
+  .merch-card:hover .merch-icon { transform: scale(1.1) rotate(5deg); }
+  /* tshirt SVG shape */
+  .tshirt {
+    width: 120px; height: 100px;
+    position: relative;
+  }
+  .merch-label-area {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.6));
+  }
+  .merch-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+  }
+  .merch-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--green-light);
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+  .merch-badge-new {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: var(--green);
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 100px;
+  }
+
+  /* COMMUNITY / SHOWS SECTION */
+  .shows-section {
+    background: var(--warm-white);
+    padding: 120px 72px;
+  }
+  .shows-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 56px;
+  }
+  .show-row {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(76,175,125,0.12);
+    transition: padding-left 0.3s ease;
+    cursor: none;
+    position: relative;
+  }
+  .show-row::before {
+    content: '';
+    position: absolute;
+    left: -72px;
+    top: 0; bottom: 0;
+    width: 0;
+    background: rgba(76,175,125,0.04);
+    transition: width 0.3s ease;
+  }
+  .show-row:hover { padding-left: 16px; }
+  .show-row:hover::before { width: calc(100% + 144px); }
+  .show-date-block {
+    text-align: center;
+    min-width: 64px;
+  }
+  .show-month {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+  .show-day {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 44px;
+    line-height: 1;
+    color: var(--charcoal);
+  }
+  .show-info { flex: 1; }
+  .show-venue {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+  .show-location {
+    font-size: 13px;
+    color: var(--soft);
+    margin-top: 3px;
+    letter-spacing: 0.06em;
+  }
+  .show-pill {
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1.5px solid;
+  }
+  .show-pill.on-sale {
+    background: var(--green);
+    color: white;
+    border-color: var(--green);
+  }
+  .show-pill.soldout {
+    color: var(--soft);
+    border-color: rgba(138,138,126,0.3);
+  }
+  .show-pill.soon {
+    color: var(--gold);
+    border-color: var(--gold);
+  }
+
+  /* COMMUNITY SECTION */
+  .community-section {
+    background: linear-gradient(160deg, var(--green-dark) 0%, var(--green) 60%, var(--green-light) 100%);
+    padding: 100px 72px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .community-section::before {
+    content: 'HILLCREST';
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 220px;
+    color: rgba(255,255,255,0.05);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.05em;
+  }
+  .community-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 7vw, 88px);
+    color: white;
+    line-height: 0.95;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+  }
+  .community-sub {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+    max-width: 500px;
+    margin: 0 auto 48px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+  }
+  .email-form {
+    display: flex;
+    gap: 12px;
+    max-width: 480px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .email-input {
+    flex: 1;
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 100px;
+    padding: 16px 24px;
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s, background 0.3s;
+    backdrop-filter: blur(8px);
+  }
+  .email-input::placeholder { color: rgba(255,255,255,0.5); }
+  .email-input:focus {
+    border-color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.2);
+  }
+  .btn-white {
+    background: white;
+    color: var(--green-dark);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 28px;
+    border-radius: 100px;
+    border: none;
+    cursor: none;
+    flex-shrink: 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+  /* FOOTER */
+  footer {
+    background: var(--charcoal);
+    color: var(--cream);
+    padding: 72px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 44px;
+    letter-spacing: 0.08em;
+    color: white;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .footer-logo span { color: var(--green); }
+  .footer-tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: rgba(247,243,236,0.45);
+    line-height: 1.6;
+    max-width: 260px;
+  }
+  .footer-socials {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .social-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 14px;
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+    cursor: none;
+  }
+  .social-btn:hover {
+    border-color: var(--green);
+    color: var(--green);
+    background: rgba(76,175,125,0.08);
+  }
+  .footer-col-title {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 20px;
+  }
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-links a {
+    color: rgba(247,243,236,0.5);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+    cursor: none;
+  }
+  .footer-links a:hover { color: var(--cream); }
+  .footer-bottom {
+    background: var(--charcoal);
+    padding: 20px 72px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bottom p {
+    font-size: 11px;
+    color: rgba(247,243,236,0.3);
+    letter-spacing: 0.08em;
+  }
+  .footer-bottom span { color: var(--green); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* PARALLAX HELPER */
+  .parallax-slow { will-change: transform; }
+</style>
+</head>
+<body>
+
+<!-- CURSORS -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">HILL<span>CREST</span></a>
+  <ul class="nav-links">
+    <li><a href="#music">Music</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#merch">Merch</a></li>
+    <li><a href="#shows">Shows</a></li>
+    <li><a href="#community" class="nav-cta">Join the Crew</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- LEFT -->
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-dot"></div>
+      <span>West Coast Duo · Los Angeles, CA</span>
+    </div>
+
+    <h1 class="hero-title">
+      HILL<br>
+      <span class="green-stroke">CREST</span>
+    </h1>
+
+    <p class="hero-sub">
+      Hip-hop stitched in sunshine — where the block meets the boutique, and every track feels like home.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#music" class="btn-primary">
+        <span>Listen Now</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </a>
+      <a href="#shows" class="btn-ghost">
+        <span>Tour Dates</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+      </a>
+    </div>
+
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span class="scroll-text">Scroll to Explore</span>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="hero-right">
+    <div class="hero-visual-bg"></div>
+
+    <!-- floating circles -->
+    <div class="float-circle" style="width:200px;height:200px;top:10%;right:5%;animation-duration:7s"></div>
+    <div class="float-circle" style="width:80px;height:80px;top:55%;right:12%;animation-duration:5s;animation-delay:-2s"></div>
+    <div class="float-circle" style="width:120px;height:120px;top:25%;right:40%;animation-duration:9s;animation-delay:-4s"></div>
+
+    <div class="hero-watermark">HC</div>
+
+    <!-- Big decorative type -->
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-40%,-55%);text-align:center;z-index:3;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,9vw,120px);color:rgba(255,255,255,0.18);letter-spacing:0.05em;line-height:1;">WEST<br>COAST</div>
+      <div style="display:flex;justify-content:center;gap:8px;margin-top:16px;">
+        <span style="background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);padding:8px 16px;border-radius:100px;font-size:11px;color:white;letter-spacing:0.15em;">HIP-HOP</span>
+        <span style="background:rgba(212,168,67,0.3);backdrop-filter:blur(8px);border:1px solid rgba(212,168,67,0.4);padding:8px 16px;border-radius:100px;font-size:11px;color:white;letter-spacing:0.15em;">FASHION</span>
+        <span style="background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);padding:8px 16px;border-radius:100px;font-size:11px;color:white;letter-spacing:0.15em;">CULTURE</span>
+      </div>
+    </div>
+
+    <!-- Now playing card -->
+    <div class="hero-artist-card">
+      <div class="now-playing-dot">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <div class="now-playing-info">
+        <div class="now-playing-label">Now Playing</div>
+        <div class="now-playing-title">Golden Hour (feat. J. Wells)</div>
+        <div class="now-playing-artists">Hillcrest · Sunny Side Up</div>
+      </div>
+      <div class="waveform">
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER TAPE -->
+<div class="ticker">
+  <div class="ticker-inner" id="ticker">
+    <div class="ticker-item"><span class="ticker-dot">✦</span> New Album Out Now</div>
+    <div class="ticker-item"><span class="ticker-dot">✦</span> Summer Tour 2026</div>
+    <div class="ticker-item"><span class="ticker-dot">✦</span> Hillcrest x Pleasures Collab</div>
+    <div class="ticker-item"><span class="ticker-dot">✦</span> Golden Hour — Stream Now</div>
+    <div class="ticker-item"><span class="ticker-dot">✦</span> West Coast Forever</div>
+    <div class="ticker-item"><span class="ticker-dot">✦</span> LA · SF · PDX · SEA</div>
+    <div class="ticker-item"><span class="ticker-dot">✦</span> New Album Out Now</div>
+    <div class="ticker-item"><span class="ticker-dot">✦</span> Summer Tour 2026</div>
+    <div class="ticker-item"><span class="ticker-dot">✦</span> Hillcrest x Pleasures Collab</div>
+    <div class="ticker-item"><span class="ticker-dot">✦</span> Golden Hour — Stream Now</div>
+    <div class="ticker-item"><span class="ticker-dot">✦</span> West Coast Forever</div>
+    <div class="ticker-item"><span class="ticker-dot">✦</span> LA · SF · PDX · SEA</div>
+  </div>
+</div>
+
+<!-- MUSIC SECTION -->
+<section class="music-section" id="music" style="padding:120px 72px;">
+  <div class="music-header reveal">
+    <div>
+      <div class="section-label">
+        <div class="section-label-line"></div>
+        <span>Discography</span>
+      </div>
+      <h2 class="section-heading">THE<br>SOUND</h2>
+    </div>
+    <a href="#" class="btn-ghost" style="font-size:12px;">View All Music</a>
+  </div>
+
+  <div class="music-tracks reveal">
+    <!-- Featured -->
+    <div class="track-card featured">
+      <div class="track-num">01</div>
+      <div class="track-art">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+      </div>
+      <div class="track-info">
+        <div class="track-title">Golden Hour (feat. J. Wells)</div>
+        <div class="track-meta">Sunny Side Up · 2026 · Lead Single</div>
+      </div>
+      <div class="track-duration">3:42</div>
+      <button class="play-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+    </div>
+
+    <div class="track-card">
+      <div class="track-num">02</div>
+      <div class="track-art">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+      </div>
+      <div class="track-info">
+        <div class="track-title">Roscoe's Sunday</div>
+        <div class="track-meta">Sunny Side Up · 2026</div>
+      </div>
+      <div class="track-duration">2:58</div>
+      <button class="play-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+    </div>
+
+    <div class="track-card">
+      <div class="track-num">03</div>
+      <div class="track-art" style="background:linear-gradient(135deg,#D4A843,#C96B3A);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+      </div>
+      <div class="track-info">
+        <div class="track-title">Porch Light</div>
+        <div class="track-meta">Side B · 2025</div>
+      </div>
+      <div class="track-duration">3:17</div>
+      <button class="play-btn" style="background:var(--gold);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+    </div>
+
+    <div class="track-card">
+      <div class="track-num">04</div>
+      <div class="track-art" style="background:linear-gradient(135deg,#6B9ED4,#3A6BC9);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+      </div>
+      <div class="track-info">
+        <div class="track-title">Halftime (Interlude)</div>
+        <div class="track-meta">Sunny Side Up · 2026</div>
+      </div>
+      <div class="track-duration">1:51</div>
+      <button class="play-btn" style="background:#4A7EC9;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+    </div>
+
+    <div class="track-card">
+      <div class="track-num">05</div>
+      <div class="track-art" style="background:linear-gradient(135deg,#C9A43A,#7D5220);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+      </div>
+      <div class="track-info">
+        <div class="track-title">Crenshaw Dreamin'</div>
+        <div class="track-meta">Side B · 2025</div>
+      </div>
+      <div class="track-duration">4:05</div>
+      <button class="play-btn" style="background:#C9A43A;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Streaming badges -->
+  <div class="reveal" style="display:flex;gap:16px;margin-top:48px;align-items:center;">
+    <span style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--soft);">Available on</span>
+    <div style="display:flex;gap:12px;">
+      <div style="background:var(--charcoal);color:var(--cream);padding:10px 18px;border-radius:100px;font-size:12px;font-weight:500;letter-spacing:0.08em;">Spotify</div>
+      <div style="background:var(--charcoal);color:var(--cream);padding:10px 18px;border-radius:100px;font-size:12px;font-weight:500;letter-spacing:0.08em;">Apple Music</div>
+      <div style="background:var(--charcoal);color:var(--cream);padding:10px 18px;border-radius:100px;font-size:12px;font-weight:500;letter-spacing:0.08em;">Tidal</div>
+      <div style="background:var(--charcoal);color:var(--cream);padding:10px 18px;border-radius:100px;font-size:12px;font-weight:500;letter-spacing:0.08em;">YouTube</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="about-section" id="about">
+  <div class="about-visual reveal">
+    <div class="about-photo-main">
+      <div class="about-type-overlay">HC</div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;">
+        <div style="text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:rgba(255,255,255,0.15);line-height:1;">WEST<br>COAST</div>
+          <div style="display:flex;gap:4px;justify-content:center;margin-top:12px;">
+            <div style="width:32px;height:3px;background:rgba(255,255,255,0.3);border-radius:2px;"></div>
+            <div style="width:8px;height:3px;background:rgba(212,168,67,0.6);border-radius:2px;"></div>
+            <div style="width:20px;height:3px;background:rgba(255,255,255,0.2);border-radius:2px;"></div>
+          </div>
+        </div>
+      </div>
+      <div style="position:relative;z-index:3;display:flex;gap:8px;flex-wrap:wrap;">
+        <div class="about-tag">📍 Los Angeles, CA</div>
+        <div class="about-tag">🎵 Est. 2022</div>
+      </div>
+    </div>
+    <div class="about-badge">
+      <div class="big">HC</div>
+      <div class="small">★ DUO ★</div>
+    </div>
+  </div>
+
+  <div class="about-content reveal">
+    <div class="section-label">
+      <div class="section-label-line"></div>
+      <span>The Story</span>
+    </div>
+    <h2 class="section-heading">WHO WE<br>ARE</h2>
+    <p class="about-body">
+      Hillcrest is <em>Marcus & Dev</em> — two kids from the west side who found music in the space between streetwear racks and sunset freeway drives. Our sound is built from the same blocks we grew up on: soulful, bright, and <em>unapologetically West Coast.</em>
+    </p>
+    <p style="font-size:15px;color:var(--soft);line-height:1.8;margin-bottom:40px;">
+      We make music for the ones who dress well and feel deeply. Fashion is the armor, hip-hop is the language — and together, they build something that feels like community.
+    </p>
+    <a href="#" class="btn-primary" style="display:inline-flex;">
+      <span>Read Our Story</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+    </a>
+    <div class="about-stats">
+      <div class="stat-item">
+        <div class="stat-num">2.4M</div>
+        <div class="stat-label">Monthly Listeners</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Projects</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">40+</div>
+        <div class="stat-label">Shows Played</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MERCH SECTION -->
+<section class="merch-section" id="merch">
+  <div class="merch-header reveal">
+    <div>
+      <div class="section-label">
+        <div class="section-label-line" style="background:var(--green-light);"></div>
+        <span>The Shop</span>
+      </div>
+      <h2 class="section-heading">WEAR<br>THE<br>WAVE</h2>
+    </div>
+    <a href="#" class="btn-ghost" style="color:var(--cream);border-color:rgba(247,243,236,0.25);">Shop All</a>
+  </div>
+
+  <div class="merch-grid reveal">
+    <!-- Featured merch -->
+    <div class="merch-card">
+      <div class="merch-visual">
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;">
+          <!-- SVG shirt silhouette -->
+          <svg width="140" height="120" viewBox="0 0 140 120" fill="none" opacity="0.25">
+            <path d="M50 10 L30 30 L10 20 L10 50 L30 50 L30 110 L110 110 L110 50 L130 50 L130 20 L110 30 L90 10 Q70 25 50 10Z" fill="white"/>
+          </svg>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:rgba(255,255,255,0.15);letter-spacing:0.1em;">HILLCREST</div>
+        </div>
+        <div class="merch-badge-new">New Drop</div>
+        <div class="merch-label-area">
+          <div class="merch-name">Hillcrest Classic Tee</div>
+          <div class="merch-price">$38</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="merch-card">
+      <div class="merch-visual">
+        <div style="display:flex;align-items:center;justify-content:center;height:100%;">
+          <svg width="80" height="80" viewBox="0 0 100 100" fill="none" opacity="0.3">
+            <circle cx="50" cy="35" r="25" fill="white"/>
+            <path d="M20 80 Q50 60 80 80 L85 100 L15 100Z" fill="white"/>
+          </svg>
+        </div>
+        <div class="merch-label-area">
+          <div class="merch-name">HC Fitted Cap</div>
+          <div class="merch-price">$45</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="merch-card">
+      <div class="merch-visual">
+        <div style="display:flex;align-items:center;justify-content:center;height:100%;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:rgba(76,175,125,0.4);line-height:1;text-align:center;letter-spacing:0.05em;">SUNNY<br>SIDE<br>UP</div>
+        </div>
+        <div class="merch-badge-new" style="background:var(--gold);">Limited</div>
+        <div class="merch-label-area">
+          <div class="merch-name">Album Hoodie</div>
+          <div class="merch-price">$72</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWS SECTION -->
+<section class="shows-section" id="shows">
+  <div class="reveal">
+    <div class="section-label">
+      <div class="section-label-line"></div>
+      <span>Live</span>
+    </div>
+    <h2 class="section-heading">ON THE<br>ROAD</h2>
+  </div>
+
+  <div class="shows-grid">
+    <div class="show-row reveal">
+      <div class="show-date-block">
+        <div class="show-month">May</div>
+        <div class="show-day">09</div>
+      </div>
+      <div class="show-info">
+        <div class="show-venue">The Fonda Theatre</div>
+        <div class="show-location">Los Angeles, CA · Homecoming Show</div>
+      </div>
+      <div class="show-pill soldout">Sold Out</div>
+    </div>
+
+    <div class="show-row reveal">
+      <div class="show-date-block">
+        <div class="show-month">May</div>
+        <div class="show-day">17</div>
+      </div>
+      <div class="show-info">
+        <div class="show-venue">Fillmore San Francisco</div>
+        <div class="show-location">San Francisco, CA</div>
+      </div>
+      <div class="show-pill on-sale">Tickets</div>
+    </div>
+
+    <div class="show-row reveal">
+      <div class="show-date-block">
+        <div class="show-month">Jun</div>
+        <div class="show-day">03</div>
+      </div>
+      <div class="show-info">
+        <div class="show-venue">Wonder Ballroom</div>
+        <div class="show-location">Portland, OR</div>
+      </div>
+      <div class="show-pill on-sale">Tickets</div>
+    </div>
+
+    <div class="show-row reveal">
+      <div class="show-date-block">
+        <div class="show-month">Jun</div>
+        <div class="show-day">14</div>
+      </div>
+      <div class="show-info">
+        <div class="show-venue">Neumos</div>
+        <div class="show-location">Seattle, WA</div>
+      </div>
+      <div class="show-pill on-sale">Tickets</div>
+    </div>
+
+    <div class="show-row reveal">
+      <div class="show-date-block">
+        <div class="show-month">Jul</div>
+        <div class="show-day">22</div>
+      </div>
+      <div class="show-info">
+        <div class="show-venue">Levitt Pavilion</div>
+        <div class="show-location">Los Angeles, CA · Free Show</div>
+      </div>
+      <div class="show-pill soon">Soon</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY CTA -->
+<section class="community-section" id="community">
+  <h2 class="community-heading reveal">JOIN THE<br>HILLCREST CREW</h2>
+  <p class="community-sub reveal">
+    First access to drops, tour pre-sales, and the occasional unhinged voice memo from the studio.
+  </p>
+  <div class="email-form reveal">
+    <input class="email-input" type="email" placeholder="your@email.com" />
+    <button class="btn-white">Join Up</button>
+  </div>
+  <div style="position:relative;z-index:2;margin-top:24px;display:flex;gap:24px;justify-content:center;">
+    <span style="font-size:12px;color:rgba(255,255,255,0.5);">✓ No spam. Real updates only.</span>
+    <span style="font-size:12px;color:rgba(255,255,255,0.5);">✓ Unsubscribe anytime.</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">HILL<span>CREST</span></div>
+    <p class="footer-tagline">West Coast hip-hop for the ones who move through the world with intention and style.</p>
+    <div class="footer-socials">
+      <a href="#" class="social-btn" title="Instagram">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+      <a href="#" class="social-btn" title="Twitter/X">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="#" class="social-btn" title="YouTube">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="#" class="social-btn" title="TikTok">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.31 6.31 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.8a8.2 8.2 0 004.77 1.52V6.87a4.85 4.85 0 01-1-.18z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div>
+    <div class="footer-col-title">Navigate</div>
+    <ul class="footer-links">
+      <li><a href="#music">Music</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#merch">Merch</a></li>
+      <li><a href="#shows">Shows</a></li>
+    </ul>
+  </div>
+
+  <div>
+    <div class="footer-col-title">Connect</div>
+    <ul class="footer-links">
+      <li><a href="#">Press Kit</a></li>
+      <li><a href="#">Booking</a></li>
+      <li><a href="#">Licensing</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </div>
+
+  <div>
+    <div class="footer-col-title">Community</div>
+    <ul class="footer-links">
+      <li><a href="#">Newsletter</a></li>
+      <li><a href="#">Fan Club</a></li>
+      <li><a href="#">Fan Art</a></li>
+      <li><a href="#">Discord</a></li>
+    </ul>
+  </div>
+</footer>
+
+<div class="footer-bottom">
+  <p>© 2026 <span>Hillcrest</span>. All rights reserved. Made in Los Angeles.</p>
+  <p>Privacy Policy · Terms · Cookie Settings</p>
+</div>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  (function animRing() {
+    rx += (mx - rx) * 0.14;
+    ry += (my - ry) * 0.14;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  document.querySelectorAll('a, button, .track-card, .merch-card, .show-row').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+    el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+  });
+
+  // Nav scroll
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => obs.observe(el));
+
+  // Ticker duplicate for seamless loop
+  const tickerEl = document.getElementById('ticker');
+  tickerEl.innerHTML += tickerEl.innerHTML;
+
+  // Email form
+  document.querySelector('.btn-white').addEventListener('click', function() {
+    const input = document.querySelector('.email-input');
+    if (input.value && input.value.includes('@')) {
+      input.value = '';
+      input.placeholder = '✓ You\'re in the crew!';
+      this.textContent = '✓ Joined!';
+      this.style.background = 'var(--green-light)';
+      this.style.color = 'white';
+    }
+  });
+
+  // Play button interactions
+  document.querySelectorAll('.play-btn').forEach(btn => {
+    let playing = false;
+    btn.addEventListener('click', function() {
+      playing = !playing;
+      this.innerHTML = playing
+        ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>'
+        : '<svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>';
+    });
+  });
+</script>
+</body>
+</html>
